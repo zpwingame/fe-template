@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App'
 import VueRouter from 'vue-router'
 import User from './src/user'
-
+import store from './store'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -15,5 +15,6 @@ const router = new VueRouter({
 let vm = new Vue({
     el:'#app',
     router,
+    store,
     render: h => h(App)
 })
