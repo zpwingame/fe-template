@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 function resolve (dir) {
     return path.join(__dirname, dir)
@@ -8,7 +9,7 @@ function resolve (dir) {
 
 module.exports = {
     entry: {
-        index: ['./build/dev-client','./src/index.js']
+        index: ['./build/dev-client','./main.js']
     },
     mode: 'development',
     devtool: '#eval-source-map',
@@ -23,6 +24,10 @@ module.exports = {
                 use: 'css-loader'
             },
             {
+                test: /\.scss$/,
+                use: ['style-loader', "css-loader", 'sass-loader']
+            },
+            {
                 test: /\.js$/,
                 use: {
                     loader: 'babel-loader',
@@ -31,7 +36,14 @@ module.exports = {
                     },
                 },
                 exclude: /node_modules/
-            }
+            },
+            {
+                test: /\.vue$/,
+                use: {
+                    loader: 'vue-loader',
+                },
+                exclude: /node_modules/
+            },
         ]
     },
     resolve: {
@@ -43,7 +55,11 @@ module.exports = {
         }
     },
     plugins: [
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './template/index.html'
+        }),
         new webpack.HotModuleReplacementPlugin(),
+        new VueLoaderPlugin()
     ]
 };
