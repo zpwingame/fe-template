@@ -1,8 +1,6 @@
 <template>
-    <div class="cont wrapper">
-        <header class='header'>
-            header
-        </header>
+    <div>
+        <router-view></router-view>
     </div>
 </template>
 <style lang="scss">
