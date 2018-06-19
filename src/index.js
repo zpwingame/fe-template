@@ -1,3 +1,4 @@
 let a = () => {
-    console.log('hello wolrd')
+    console.log('Hello World')
 }
+a();

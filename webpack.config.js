@@ -1,13 +1,21 @@
 const path = require('path');
+const webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
+function resolve (dir) {
+    return path.join(__dirname, dir)
+}
 
 module.exports = {
     entry: {
-        index: './src/index.js'
+        index: ['./build/dev-client','./src/index.js']
     },
     mode: 'development',
+    devtool: '#eval-source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: '/'
     },
     module: {
         rules: [{
@@ -20,9 +28,22 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env']
-                    }
-                }
+                    },
+                },
+                exclude: /node_modules/
             }
         ]
-    }
+    },
+    resolve: {
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            'vue': 'vue/dist/vue.esm.js',
+            '@': resolve('src'),
+            '@node_modules': resolve('node_modules'),
+        }
+    },
+    plugins: [
+        new HtmlWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+    ]
 };
