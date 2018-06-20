@@ -4,6 +4,7 @@
     </div>
 </template>
 <style lang="scss">
+    @import './src/assets/reset.scss';
     .wrapper {
         width: 900px;
         margin: 0 auto;

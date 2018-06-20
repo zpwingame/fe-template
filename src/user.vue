@@ -6,13 +6,30 @@
                 item.name
             }}
         </div>
+        <input type="button" class='add' value="button" @click='addNumberTen()'>
+        {{ count }}
     </div>
 </template>
 <script>
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapMutations } = createNamespacedHelpers('moduleA')
+
 export default {
     data() {
         return {
-            fruits: this.$store.state.moduleA.fruits
+        }
+    },
+    computed: mapState({
+        count: state => state.count,
+        fruits: state => state.fruits
+    }),
+    methods: {
+        ...mapMutations({
+            increment: 'increment'
+        }),
+        addNumberTen() {
+            this.increment({ amount: 10 })
         }
     },
     mounted() {
@@ -20,4 +37,16 @@ export default {
     }
 }
 </script>
+<style lang='scss'>
+.cont {
+    margin: 10px;
+}
+.add {
+  height: 40px;
+  background: #00ae66;
+  color: #fff;
+  padding: 5px;
+}
+</style>
+
 

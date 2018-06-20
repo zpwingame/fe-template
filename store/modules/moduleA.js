@@ -5,7 +5,8 @@ const state = {
     }, {
         name: 'orange',
         price: 5
-    }]
+    }],
+    count:11
 }
 
 // getters
@@ -18,6 +19,9 @@ const actions = {
 
 // mutations
 const mutations = {
+    increment (state, payload) {
+        state.count += payload.amount
+    }
 }
 
 export default {
