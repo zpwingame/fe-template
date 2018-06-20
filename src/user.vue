@@ -40,6 +40,7 @@ export default {
 <style lang='scss'>
 .cont {
     margin: 10px;
+    transform: translateX(20px)
 }
 .add {
   height: 40px;
