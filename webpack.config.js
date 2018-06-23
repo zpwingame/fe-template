@@ -9,7 +9,7 @@ function resolve (dir) {
 
 module.exports = {
     entry: {
-        index: ['./build/dev-client','./main.js']
+        index: ['./main.js']
     },
     mode: 'development',
     devtool: '#eval-source-map',
@@ -47,6 +47,11 @@ module.exports = {
                 exclude: /node_modules/
             },
         ]
+    },
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
