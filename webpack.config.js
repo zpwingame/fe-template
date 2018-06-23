@@ -2,12 +2,14 @@ const path = require('path');
 const webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const apiMocker = require('webpack-api-mocker');
+const mocker = require('./mock/index.js');
 
 function resolve (dir) {
     return path.join(__dirname, dir)
 }
 
-module.exports = {
+let config  = {
     entry: {
         index: ['./main.js']
     },
@@ -49,9 +51,9 @@ module.exports = {
         ]
     },
     devServer: {
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: path.resolve(__dirname, 'dist'),
         compress: true,
-        port: 9000
+        port: 9000,
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
@@ -67,6 +69,20 @@ module.exports = {
             template: './template/index.html'
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: process.env.NODE_ENV,
+                MOCK: process.env.MOCK,
+            }
+        }),
     ]
 };
+
+
+if(process.env.MOCK) {
+    config.devServer.before = function(app){
+        apiMocker(app, path.resolve('./mock/index.js'))
+    }
+}
+module.exports = config;

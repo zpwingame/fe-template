@@ -12,6 +12,8 @@
 </template>
 <script>
 import { createNamespacedHelpers } from 'vuex'
+import axios from '../util/axios.js'
+
 
 const { mapState, mapMutations } = createNamespacedHelpers('moduleA')
 
@@ -33,6 +35,21 @@ export default {
         }
     },
     mounted() {
+        fetch('/api/user')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        });
+
+        axios.get('/api/user')
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
         console.log(this.$store.state)
     }
 }
