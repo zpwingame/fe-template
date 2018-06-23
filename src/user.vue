@@ -43,13 +43,22 @@ export default {
 
         axios.get('/api/user')
         .then(function (response) {
-            console.log(response);
+            console.log(response.data);
         })
         .catch(function (error) {
             console.log(error);
         });
 
-
+        axios.post('/api/login/account', {
+            password: '888888',
+            username: 'admin'
+        })
+        .then(function (response) {
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
         console.log(this.$store.state)
     }
 }
