@@ -8,9 +8,6 @@ function resolve (dir) {
 }
 
 module.exports = {
-    entry: {
-        index: ['./build/dev-client','./entry-client.js']
-    },
     mode: 'development',
     devtool: '#eval-source-map',
     output: {

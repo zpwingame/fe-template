@@ -3,6 +3,7 @@
         <header class='header'>
             {{items}}
         </header>
+        {{ssr}}
     </div>
 </template>
 <script>
@@ -13,7 +14,8 @@ export default {
   },
   data() {
     return {
-      items: this.$store.state.items
+      items: this.$store.state.items,
+      ssr:'success'
     }
     
   }
