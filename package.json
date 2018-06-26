@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node build/dev-server.js"
+    "dev": "node build/dev-server.js",
+    "ssr": "node build/server.js"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +18,10 @@
     "style-loader": "^0.21.0",
     "vue": "^2.5.16",
     "vue-loader": "^15.2.4",
+    "vue-router": "^3.0.1",
+    "vue-server-renderer": "^2.5.16",
     "vue-template-compiler": "^2.5.16",
+    "vuex": "^3.0.1",
     "webpack": "^4.12.0"
   },
   "devDependencies": {
@@ -25,6 +29,7 @@
     "@babel/preset-env": "^7.0.0-beta.51",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.0-beta.3",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^0.28.11",
     "eventsource-polyfill": "^0.9.6",
