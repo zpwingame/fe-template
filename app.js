@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import {
+    sync
+} from 'vuex-router-sync'
+
+import {
     createStore
 } from './store'
 import {
@@ -12,6 +16,7 @@ import {
 export function createApp() {
     const store = createStore()
     const router = createRouter()
+    sync(store, router)
     const app = new Vue({
         // 根实例简单的渲染应用程序组件。
         router,
@@ -19,6 +24,6 @@ export function createApp() {
         render: h => h(App)
     })
     return {
-        app, store,router
+        app, router, store,
     }
 }

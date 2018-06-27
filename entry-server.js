@@ -9,9 +9,7 @@ export default context => {
             router,
             store
         } = createApp()
-
         router.push(context.url)
-
         router.onReady(() => {
             const matchedComponents = router.getMatchedComponents()
             if (!matchedComponents.length) {

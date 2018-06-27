@@ -15,6 +15,7 @@ if (window.__INITIAL_STATE__) {
 
 Vue.mixin({
     beforeMount() {
+        console.log('before mount')
         const {
             asyncData
         } = this.$options

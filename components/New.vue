@@ -1,6 +1,6 @@
 <template>
     <div>
-        Item
+        New
     </div>
 </template>
 <script>

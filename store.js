@@ -13,7 +13,9 @@ console.log(fetchItem)
 export function createStore() {
     return new Vuex.Store({
         state: {
-            items: {}
+            items: {
+                name:'zhaopeng'
+            }
         },
         actions: {
             fetchItem({

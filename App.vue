@@ -1,15 +1,24 @@
 <template>
-    <div class="cont wrapper">
-        <header class='header'>
-            {{items}}
-        </header>
-        {{ssr}}
+    <div>
+      <router-view></router-view>
+      <router-link to="/top">Top</router-link>
+      <router-link to="/new">New</router-link>
+      <router-link to="/show">Show</router-link>
+      <router-link to="/ask">Ask</router-link>
+      <router-link to="/job">Jobs</router-link>
+      <div class="cont wrapper">
+          <header class='header'>
+              {{items}}
+          </header>
+          {{ssr}}
+      </div>
     </div>
 </template>
 <script>
 export default {
   asyncData({ store, route }) {
     // 触发 action 后，会返回 Promise
+    console.log(123)
     return store.dispatch("fetchItem",1);
   },
   data() {
@@ -18,6 +27,9 @@ export default {
       ssr:'success'
     }
     
+  },
+  mounted() {
+    console.log('hello world')
   }
 };
 </script>
