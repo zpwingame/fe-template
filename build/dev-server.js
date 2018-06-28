@@ -4,6 +4,15 @@ var webpackConfig = require('../webpack.config')
 
 var app = express()
 
+Object.keys(webpackConfig.entry).forEach(function (name) {
+    webpackConfig.entry[name] = ['./build/dev-client'].concat(webpackConfig.entry[name])
+    // if(process.env.NODE_ENV === 'mock') {
+    //     baseWebpackConfig.entry[name] = ['./data/mock'].concat(baseWebpackConfig.entry[name]);
+    // }
+})
+console.log(webpackConfig.entry)
+
+
 
 var compiler = webpack(webpackConfig)
 

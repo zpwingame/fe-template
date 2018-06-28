@@ -1,15 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const apiMocker = require('webpack-api-mocker');
+const mocker = require('./mock/index.js');
 
 function resolve (dir) {
     return path.join(__dirname, dir)
 }
 
-module.exports = {
+let config  = {
     entry: {
-        index: ['./build/dev-client','./main.js']
+        index: ['./src/index.tsx']
     },
     mode: 'development',
     devtool: '#eval-source-map',
@@ -21,35 +22,35 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.css$/,
-                use: 'css-loader'
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.scss$/,
-                use: ['style-loader', "css-loader", 'sass-loader']
+                use: ['style-loader', "css-loader", 'postcss-loader'
+                    ,'sass-loader'
+                ]
             },
             {
+                test: /\.tsx?$/,
+                use: {
+                    loader: "awesome-typescript-loader"
+                }
+            },
+            {
+                enforce: "pre",
                 test: /\.js$/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    },
-                },
-                exclude: /node_modules/
-            },
-            {
-                test: /\.vue$/,
-                use: {
-                    loader: 'vue-loader',
-                },
-                exclude: /node_modules/
+                loader: "source-map-loader"
             },
         ]
     },
+    devServer: {
+        contentBase: path.resolve(__dirname, 'dist'),
+        compress: true,
+        port: 9000,
+    },
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        extensions: [".js", ".json", ".ts", ".tsx"],
         alias: {
-            'vue': 'vue/dist/vue.esm.js',
             '@': resolve('src'),
             '@node_modules': resolve('node_modules'),
         }
@@ -60,6 +61,19 @@ module.exports = {
             template: './template/index.html'
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new VueLoaderPlugin()
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: process.env.NODE_ENV,
+                MOCK: process.env.MOCK,
+            }
+        }),
     ]
 };
+
+
+if(process.env.MOCK) {
+    config.devServer.before = function(app){
+        apiMocker(app, path.resolve('./mock/index.js'))
+    }
+}
+module.exports = config;
