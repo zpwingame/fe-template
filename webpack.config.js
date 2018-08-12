@@ -11,10 +11,12 @@ function resolve (dir) {
 
 let config  = {
     entry: {
-        index: ['./main.js']
+        index: ['./main.js'],
+        mobile: ['./main.js'],
+        test:'./test.js'
     },
     mode: 'development',
-    devtool: '#eval-source-map',
+    devtool: '#source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
@@ -66,7 +68,13 @@ let config  = {
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './template/index.html'
+            template: './template/index.html',
+            chunks: ['index'],
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'home.html',
+            template: './template/mobile.html',
+            chunks: ['mobile'],
         }),
         new webpack.HotModuleReplacementPlugin(),
         new VueLoaderPlugin(),
